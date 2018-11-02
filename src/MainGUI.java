@@ -3,18 +3,30 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class MainGUI extends JFrame{
+		/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 		private static int WIDTH = 600;
 		private static int HEIGHT = 600;
 		private JButton fileSelect, submit, viewFile, export;
-		private JComboBox decibelSelect;
+		private JComboBox<String> decibelSelect;
 		private JMenuBar menuBar;
 		private JMenu file;
 		private JMenuItem eMenuItem, hMenuItem;
 		private JLabel progressField;
 		private JLabel visualField;
+		private JScrollPane fileField;
 
 		public MainGUI() {
 			
+			//General list to test if field works
+			String[] listpop = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"};
+			JList<String> list = new JList<String>(listpop);
+			
+			Font size = new Font("Arial", Font.PLAIN, 20);
+			
+			//decibel list, can be changed if needed
 			String[] decibel = {"72 -- Low", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "83", "84 -- Normal", "85",
 					"86", "87", "88", "89", "90", "91", "92", "93", "94", "95", "96 -- High"};
 			
@@ -22,10 +34,11 @@ public class MainGUI extends JFrame{
 			submit = new JButton("Submit");
 			viewFile = new JButton("View File");
 			export = new JButton("Export");
-			decibelSelect = new JComboBox(decibel);
+			decibelSelect = new JComboBox<String>(decibel);
 			decibelSelect.setEditable(true);
 			progressField = new JLabel("Current Progress: ", JLabel.CENTER);
 			visualField = new JLabel("Visual Field", JLabel.CENTER);
+			fileField = new JScrollPane(list);
 			
 			menuBar = new JMenuBar();
 			file = new JMenu("File");
@@ -33,7 +46,17 @@ public class MainGUI extends JFrame{
 			hMenuItem = new JMenuItem("Help");
 			eMenuItem = new JMenuItem("Exit");
 			menuBar.add(file);
-			setJMenuBar(menuBar);		
+			setJMenuBar(menuBar);
+			
+			fileSelect.setFont(size);
+			submit.setFont(size);
+			viewFile.setFont(size);
+			export.setFont(size);
+			decibelSelect.setFont(size);
+			progressField.setFont(size);
+			file.setFont(size);
+			hMenuItem.setFont(size);
+			eMenuItem.setFont(size);
 			
 			Container pane = this.getContentPane();
 			pane.setLayout(new GridBagLayout());
@@ -49,18 +72,25 @@ public class MainGUI extends JFrame{
 			c.weightx = 0.5;
 			c.gridx = 1;
 			c.gridy = 0;
-			pane.add(decibelSelect,c );
+			pane.add(decibelSelect, c);
 			c.fill = GridBagConstraints.HORIZONTAL;
 			c.weightx = 0.5;
 			c.gridwidth = 2;
 			c.gridx = 0;
 			c.gridy = 1;
-			pane.add(submit,c );
+			pane.add(submit, c);
 			c.fill = GridBagConstraints.HORIZONTAL;
 			c.weightx = 0.5;
 			c.ipady = 80;
-			c.gridwidth = 2;
+			c.gridwidth = 1;
 			c.gridx = 0;
+			c.gridy = 2;
+			pane.add(fileField, c);
+			c.fill = GridBagConstraints.HORIZONTAL;
+			c.weightx = 0.5;
+			c.ipady = 80;
+			c.gridwidth = 1;
+			c.gridx = 1;
 			c.gridy = 2;
 			pane.add(progressField, c);
 			c.fill = GridBagConstraints.HORIZONTAL;
@@ -99,66 +129,5 @@ public class MainGUI extends JFrame{
 			this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 			this.setVisible(true);
 		}
-		
-		public static void main(String[] args){
-			MainGUI gui = new MainGUI();
-		}
-		
-		private class fileSelectHandler implements ActionListener {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0){
-				
-			}
-		}
-		
-		private class decibelSelectHandler implements ActionListener {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0){
-				
-			}
-		}
-		
-		private class submitHandler implements ActionListener {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0){
-				
-			}
-		}
-		
-		private class viewFileHandler implements ActionListener {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0){
-				
-			}
-		}
-		
-		private class exportHandler implements ActionListener {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0){
-				
-			}
-		}
-		
-		private class eMenuItemHandler implements ActionListener {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0){
-				System.exit(0);
-			}
-		}
-		
-		private class hMenuItemHandler implements ActionListener {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0){
-				
-			}
-		}
-		
 		
 }
