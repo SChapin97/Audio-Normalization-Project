@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class MainGUI extends JFrame{
+//Git Repository copy
 		/**
 	 * 
 	 */
@@ -17,12 +18,12 @@ public class MainGUI extends JFrame{
 		private JLabel progressField;
 		private JLabel visualField;
 		private JScrollPane fileField;
+		private fileSelectHandler fsh;
 
 		public MainGUI() {
 			
 			//General list to test if field works
-			String[] listpop = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"};
-			JList<String> list = new JList<String>(listpop);
+			JList<String> list = new JList<String>();
 			
 			Font size = new Font("Arial", Font.PLAIN, 20);
 			
@@ -116,7 +117,9 @@ public class MainGUI extends JFrame{
 			file.add(hMenuItem);
 			file.add(eMenuItem);
 			
-			fileSelect.addActionListener(new fileSelectHandler());
+			fsh= new fileSelectHandler();
+			
+			fileSelect.addActionListener(fsh);
 			decibelSelect.addActionListener(new decibelSelectHandler());
 			submit.addActionListener(new submitHandler());
 			viewFile.addActionListener(new viewFileHandler());
@@ -128,6 +131,8 @@ public class MainGUI extends JFrame{
 			this.setSize(WIDTH, HEIGHT);
 			this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 			this.setVisible(true);
+			
+			list.add(fsh.gtFiles());
 		}
 		
 }
