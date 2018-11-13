@@ -31,6 +31,7 @@ public class Normalizer extends File{
 		
 	}//end of Default Constructor
 	
+<<<<<<< HEAD
 	public Normalizer(Queue<File> fileQueue) {
 		this.fileQueue = fileQueue;
 		file = new File();
@@ -40,6 +41,10 @@ public class Normalizer extends File{
 			normalize(files);
 		}//end of for loop
 	}//end of Alternate Constructor
+=======
+	private void normalize(Queue fileQueue) {
+	}//end of normalize method
+>>>>>>> 3daa03d0ff3a5f6fdebfcca916c7d1870b9d1106
 	
 	private void normalize(File file) {
 		AudioInputStream audin = new AudioInputStream((TargetDataLine) file);

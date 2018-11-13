@@ -1,4 +1,4 @@
-package backend;
+ package backend;
 
 import java.io.*;
 
@@ -6,11 +6,17 @@ import java.io.*;
  * to be modified by the Normalizer class.
  */
 
+// Decouple FileSelectHandler on the front end to allow for a removed Model View and Controller
+
+
+
 public class File {
 
 	//TODO: delete this later, move to constructor as per Open-Closed Principle
 	private FileInputStream in;
 	private FileOutputStream out;
+	private String directory;
+	
 	
 	public File() {
 		instantiateFileIO();
