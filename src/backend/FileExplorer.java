@@ -4,6 +4,8 @@ package backend;
  * in importing and exporting audio files into the system.
  */
 
+// https://www.geeksforgeeks.org/java-swing-jfilechooser/ - to be referenced for future class setup.
+
 public class FileExplorer {
 
 }//end of the FileExplorer class

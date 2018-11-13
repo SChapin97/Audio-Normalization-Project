@@ -22,7 +22,7 @@ public class Normalizer extends File{
 	}//end of Default Constructor
 	
 	private void normalize(Queue fileQueue) {
-		//AudioInputStream audin = new AudioInputStream(fileQueue);
+		AudioInputStream audin = new AudioInputStream(fileQueue);
 	}//end of normalize method
 	
 	private void fileQueue() {
