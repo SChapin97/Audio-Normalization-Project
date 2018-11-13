@@ -24,7 +24,7 @@ public class Normalizer extends File{
 	File file;
 	
 	//The final program will likely utilize either the default or the alternate constructor 
-	//based on when the code is initialized, but both are included at this time
+	//based on when the code is initialized, but both are included at this time 
 	public Normalizer () {
 		fileQueue = new LinkedList<File>();
 		file = new File();
