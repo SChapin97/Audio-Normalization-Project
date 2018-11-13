@@ -17,20 +17,43 @@ import java.io.InputStream;
 
 public class Normalizer extends File{
 
-	public Normalizer() {
+	//https://docs.oracle.com/javase/7/docs/technotes/guides/sound/programmer_guide/chapter6.html
+	
+	FloatControl decibelLevel; //Vital variable: it gets decibel level, gets type, gets units, and sets value for files.
+	Queue<File> fileQueue;
+	File file;
+	
+	//The final program will likely utilize either the default or the alternate constructor 
+	//based on when the code is initialized, but both are included at this time
+	public Normalizer () {
+		fileQueue = new LinkedList<File>();
+		file = new File();
 		
 	}//end of Default Constructor
 	
-	private void normalize(Queue fileQueue) {
-		//AudioInputStream audin = new AudioInputStream(fileQueue);
+	public Normalizer(Queue<File> fileQueue) {
+		this.fileQueue = fileQueue;
+		file = new File();
+		
+		
+		for (File files : fileQueue) {
+			normalize(files);
+		}//end of for loop
+	}//end of Alternate Constructor
+	
+	private void normalize(File file) {
+		AudioInputStream audin = new AudioInputStream((TargetDataLine) file);
+			
+		//TODO: iterate each file in the Queue with decibelLevel to: 1. display gain level, 
+		//2. modify gain, and 3. display gain level after modification
+		
 	}//end of normalize method
 	
-	private void fileQueue() {
-		//TODO: Change to Queue
-		LinkedList<File> fileQueue = new LinkedList<File>();
-		//fileQueue.add(file.getFile());
-		
-	}//end of fileQueue class
 	
+	private void addFile() {
+		while (file != null) {
+			//fileQueue.add(getFile());
+		}//end of while loop
+	}//end of addFiles method
 	
 }//end of Normalizer class
