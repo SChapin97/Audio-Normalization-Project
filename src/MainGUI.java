@@ -3,7 +3,6 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class MainGUI extends JFrame{
-//Git Repository copy
 		/**
 	 * 
 	 */
@@ -19,28 +18,27 @@ public class MainGUI extends JFrame{
 		private JLabel visualField;
 		private JScrollPane fileField;
 		private fileSelectHandler fsh;
-
+		private decibelSelectHandler dsh;
+		private submitHandler sbth;
+		
 		public MainGUI() {
 			
-			//General list to test if field works
-			JList<String> list = new JList<String>();
-			
+			fsh = new fileSelectHandler();
+			dsh = new decibelSelectHandler();
+			sbth = new submitHandler(fsh, dsh);
+
 			Font size = new Font("Arial", Font.PLAIN, 20);
-			
-			//decibel list, can be changed if needed
-			String[] decibel = {"72 -- Low", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "83", "84 -- Normal", "85",
-					"86", "87", "88", "89", "90", "91", "92", "93", "94", "95", "96 -- High"};
 			
 			fileSelect = new JButton("File Select");
 			submit = new JButton("Submit");
 			viewFile = new JButton("View File");
 			export = new JButton("Export");
-			decibelSelect = new JComboBox<String>(decibel);
+			decibelSelect = new JComboBox<String>(dsh.getDecibels());
+			decibelSelect.setSelectedIndex(12);
 			decibelSelect.setEditable(true);
 			progressField = new JLabel("Current Progress: ", JLabel.CENTER);
 			visualField = new JLabel("Visual Field", JLabel.CENTER);
-			fileField = new JScrollPane(list);
-			
+			fileField = new JScrollPane();
 			menuBar = new JMenuBar();
 			file = new JMenu("File");
 			file.setMnemonic(KeyEvent.VK_F);
@@ -117,11 +115,9 @@ public class MainGUI extends JFrame{
 			file.add(hMenuItem);
 			file.add(eMenuItem);
 			
-			fsh= new fileSelectHandler();
-			
 			fileSelect.addActionListener(fsh);
-			decibelSelect.addActionListener(new decibelSelectHandler());
-			submit.addActionListener(new submitHandler());
+			submit.addActionListener(sbth);
+			decibelSelect.addActionListener(dsh);
 			viewFile.addActionListener(new viewFileHandler());
 			export.addActionListener(new exportHandler());
 			eMenuItem.addActionListener(new eMenuItemHandler());
@@ -132,7 +128,6 @@ public class MainGUI extends JFrame{
 			this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 			this.setVisible(true);
 			
-			list.add(fsh.gtFiles());
 		}
 		
 }
