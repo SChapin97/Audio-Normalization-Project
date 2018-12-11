@@ -19,14 +19,13 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  */
 public class FileAudioHandling extends AudioHandling{
 
-	AudioInputStream ais;
-	SourceDataLine line;
-	LineListener lineListener;
-	
+	private AudioInputStream ais;
+	private SourceDataLine line;
+	private LineListener lineListener;
+
 	//This is the default constructor for FileAudioHandling, which takes in a file and a float number how loud the playback should be.
 	//Default volume is 0, but can go as low as -80 (silent) or 6 (very slightly louder).
 	public FileAudioHandling(File inFile, float vol) throws UnsupportedAudioFileException, IOException {
-		
 		//This instantiates the AudioInputStream, which grabs the provided input file and places it in its buffer to be used with the line later.
 		this.ais = AudioSystem.getAudioInputStream(inFile);
 
@@ -64,49 +63,49 @@ public class FileAudioHandling extends AudioHandling{
 			return;
 		}//end of try/catch block
 		System.out.println("File, Line, and AIS for playback instantiated.");
-		
+
 		play(vol);
 	}//end of Alternate Constructor
 
-	
-	//Code taken from the run method in https://bit.ly/2ElbI4N
-		public void play(float vol)  {
-			//This boolean should stop playing the file when true, but cannot be changed currently.
-			boolean exitRequested = false;
-			line.start();
-			
-			//volControl changes the volume on the line (how loud it plays back), but this change cannot be written to a file.
-			//The equation for Master Gain is linearScalar = pow(10.0, gainDB/20.0)
-			FloatControl volControl = (FloatControl) line.getControl(FloatControl.Type.MASTER_GAIN);
-			System.out.println("Volume before value is set: " + volControl.getValue());
-			volControl.setValue(vol);
-			System.out.println("Volume after value is set: " + volControl.getValue());
-			
-			//The following block will play the instantiated file from the line to the default output for the system in use.
-			//Right now, an 'f' will be printed to command-line every time the loop completes one cycle.
-			int nRead = 0;	//When the var.read sets this variable to -1, there is no more data to be read.
-			byte[] abData = new byte[65532];	//the byte array is instantiated to slightly less than the size of a 16bit PCM signed WAV file
-			while ( ( nRead != -1 ) && ( !exitRequested )) {
-				try {
-					nRead = ais.read(abData, 0, abData.length);
-				} catch (IOException ex) {
-					Logger.getLogger(getClass().getName()).log(Level.WARNING, null, ex);
-				}//end of try/catch block
-				
-				//This statement is what actually "plays" the audio file.
-				if (nRead >= 0) {
-					line.write(abData, 0, nRead);
-				}//end of if statement
-				System.out.print("f");
-			}//end of while loop
 
-			//if the exitRequested variable becomes true, the line will stop reading data and release all of the data it has stored.
-			if (!exitRequested) {
-				line.drain();
+	//Code taken from the run method in https://bit.ly/2ElbI4N
+	private void play(float vol)  {
+		//This boolean should stop playing the file when true, but cannot be changed currently.
+		boolean exitRequested = false;
+		line.start();
+
+		//volControl changes the volume on the line (how loud it plays back), but this change cannot be written to a file.
+		//The equation for Master Gain is linearScalar = pow(10.0, gainDB/20.0)
+		FloatControl volControl = (FloatControl) line.getControl(FloatControl.Type.MASTER_GAIN);
+		System.out.println("Volume before value is set: " + volControl.getValue());
+		volControl.setValue(vol);
+		System.out.println("Volume after value is set: " + volControl.getValue());
+
+		//The following block will play the instantiated file from the line to the default output for the system in use.
+		//Right now, an 'f' will be printed to command-line every time the loop completes one cycle.
+		int nRead = 0;	//When the var.read sets this variable to -1, there is no more data to be read.
+		byte[] abData = new byte[65532];	//the byte array is instantiated to slightly less than the size of a 16bit PCM signed WAV file
+		while ( ( nRead != -1 ) && ( !exitRequested )) {
+			try {
+				nRead = ais.read(abData, 0, abData.length);
+			} catch (IOException ex) {
+				Logger.getLogger(getClass().getName()).log(Level.WARNING, null, ex);
+			}//end of try/catch block
+
+			//This statement is what actually "plays" the audio file.
+			if (nRead >= 0) {
+				line.write(abData, 0, nRead);
 			}//end of if statement
-			
-			line.close();
-			
-			System.out.println("end of play method.");
-		}//end of play method
+			System.out.print("f");
+		}//end of while loop
+
+		//if the exitRequested variable becomes true, the line will stop reading data and release all of the data it has stored.
+		if (!exitRequested) {
+			line.drain();
+		}//end of if statement
+
+		line.close();
+
+		System.out.println("end of play method.");
+	}//end of play method
 }//end of FileAudioHandling class
